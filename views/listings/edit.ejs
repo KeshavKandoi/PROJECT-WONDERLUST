@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WonderLust</title>
+</head>
+<body>
+  <h2> CREATE NEW LISTING</h2>
+  <form method="POST" action="/listings/<%=listings._id%>?_method=PUT">
+    <input name="title" value="<%=listings.title%>" type="text"/>
+    <br/>  <br/>
+    <textarea name="description"  ><%=listings.description%></textarea>
+
+    
+    <br/>  <br/>
+    <input name="image" value="<%=listings.image%>"  type="text"/>
+    <br/>  <br/>
+    <input name="price" value="<%=listings.price%>"  type="number"/>
+    <br/>  <br/>
+    <input name="country" value="<%=listings.country%>"  type="text"/>
+    <br/>  <br/>
+    <input name="location" value="<%=listings.location%>"  type="text"/>
+    <br/>  
+
+    <br/>
+    <button>EDIT</button>
+
+
+  </form>
+  
+</body>
+</html>
