@@ -1,25 +1,75 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All Listings</title>
-</head>
-<body>
+</head>  -->
+<!-- <body> -->
+<% layout("/layouts/boilerplate")%>
+  <h3>All Listings</h3>
+<!-- 
+  <form method="GET" action="/listings/new">
+  <button> CREATE NEW LISTING</button> abb iska jarurat nahi kyuki hum new listing nav bar ,mai bana diye hai 
+</form> -->
+
+<!-- ye image k liye create kr rhe card bante jaye ga bootstarp se copy kiye hai  -->
+ <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+
+  <% for(let listings of allListings) {%>
+    <a href="/listings/<%=listings._id%>" class="listing-link">
+
+  
+    <div class="card col" style="width: 20rem">
+      <img src="<%=listings.image.url  %>" class="card-img-top" alt="listing_image" style="height:20rem"/> 
+      <div class="card-img-overlay"></div>
+      <div class="card-body"> 
+        <p class="card-text">
+          <b><%=listings.title%></b>
+          <br/>
+          &#8377;<%=listings.price.toLocaleString("en-IN")%>/PerNight 
+        </p>
+      </div>
+    </div>
+    <% } %>
+  </a>
+
+ </div>
+
+
+
+
+
+<!-- 
+---
+starting mai CRUD aise likhe the baad mai change kiye kiye
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Listings</title>
+</head> 
+ <body>
   <h3>All Listings</h3>
   <form method="GET" action="/listings/new">
-  <button> CREATE NEW LISTING</button>
-</form>
+  <button> CREATE NEW LISTING</button> 
   <ul>
   <% for(listings of allListings) {%>
     <li> 
-      <a href="/listings/<%=listings._id%>"><%=listings.title%>
-    </a>
+      <a href="/listings/<%=listings._id%>"><%=listings.title%></a>
+
     </li>
+ 
   
 
   <%}%>
 </ul>
   
-</body>
-</html>
+ </body>
+ </html>
+
+
+
+   -->

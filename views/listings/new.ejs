@@ -1,4 +1,71 @@
-<!DOCTYPE html>
+
+
+<% layout("/layouts/boilerplate") %> 
+
+
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <br/>    <br/>
+    <h3 class="mb-4"> Create New List</h3>
+    <br/>    
+
+  <form method="POST" action="/listings">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input name="title" placeholder="enter title" type="text" class="form-control"/>
+    </div>
+    
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea name="description"  class="form-control" ></textarea>
+    </div>
+   
+  
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input name="image" placeholder="enter image url link" type="text" class="form-control"/>
+    </div>
+
+    
+    
+    <div class="row">
+
+      <div class="mb-3 col-md-4">
+        <label for="price" class="form-label">Price</label>
+        <input name="price" placeholder=6969 type="number" class="form-control"/>
+      </div>
+      
+     
+  
+      <div class="mb-3 col-md-8">
+        <label for="country" class="form-label">Country</label>
+        <input name="country" placeholder="India" type="text" class="form-control"/>
+      </div>
+  
+    </div>
+
+  
+    
+
+    <div class="mb-3">
+       
+      <label for="location" class="form-label">Location</label>
+      <input name="location" placeholder="enter location" type="text" class="form-control"/>
+    </div>
+    
+     
+    <button class="btn btn-dark add-btn mt-3">ADD</button>
+
+    <br/>    
+  </form>
+</div>
+</div>
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -12,7 +79,7 @@
     <br/>  <br/>
     <textarea name="description" placeholder="enter description"></textarea>
 
-    <!-- <textarea name="listings[description]" placeholder="enter description"></textarea> isko aise bhi likh sakte to direct app.js mai listing nikal skte h vaha let{description} nahi likhna pare ga  -->
+     <textarea name="listings[description]" placeholder="enter description"></textarea> isko aise bhi likh sakte to direct app.js mai listing nikal skte h vaha let{description} nahi likhna pare ga  
     
     <br/>  <br/>
     <input name="image" placeholder="enter image url link" type="text"/>
@@ -31,4 +98,5 @@
   </form>
   
 </body>
-</html>
+</html> 
+-->
