@@ -9,12 +9,13 @@
 
   <div class="card col-6 offset-3  show-card  ">
     
-      <img src="<%=listing.image.url %>" class="card-img-top show-img" alt="listingimage">
+      <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="listingimage">
       <div class="card-body">
         <p class="card-text">
           <b><%=listing.title%></b><br>
           <%=listing.description%><br>
-          &#8377;<%=listing.price.toLocaleString("en-IN")%><br> 
+          &#8377;<%= listing.price != null ? listing.price.toLocaleString("en-IN") : "N/A" %>
+          
         <%=listing.location%><br>
          <%=listing.country%><br>
         </p>
@@ -26,7 +27,7 @@
 <div class="btns">
 <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark col-2 offset-0  edit-btn">EDIT  </a>
  
-  <form method="POST" action="/listings/<%=listings._id%>?_method=DELETE">
+  <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
     <button class="btn btn-dark offset-3 ">Delete </button>
     </form>
      
@@ -58,7 +59,7 @@
     <li><%=listing.title%></li>
     <li><%=listing.description%></li>
     <li>&#8377;<%=listing.price.toLocaleString("en-IN")%></li> 
-    <!-- //.toLocaleString price mai ,dene mai kaam aat hai and  ye ("en-IN")  location deta hai kaha ka lena hai 
+     //.toLocaleString price mai ,dene mai kaam aat hai and  ye ("en-IN")  location deta hai kaha ka lena hai 
     <li><%=listing.location%></li>
     <li><%=listing.country%></li>
     
