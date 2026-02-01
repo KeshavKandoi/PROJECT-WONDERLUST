@@ -5,54 +5,66 @@
 <div class="row mt-3 ">
   <div class="col-8 offset-2">
   <h2> CREATE NEW LISTING</h2>
-  <form method="POST" action="/listings/<%=listings._id%>?_method=PUT">
+
+  <form method="POST" action="/listings/<%=listings._id%>?_method=PUT" novalidate class="needs-validation">
 
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input name="title" value="<%=listings.title%>" type="text" class="form-control"/> 
+      <input name="title" value="<%=listings.title%>" type="text" class="form-control" required/> 
+
+      <div class="valid-feedback">LOOK GOOD</div>
+
     </div>
    
     <div>
       <label for="description" class="form-label">Description</label>
-      <textarea name="description"  class="form-control" ><%=listings.description%></textarea>
+      <textarea name="description"  class="form-control" required ><%=listings.description%></textarea>
+
+      <div class="invalid-feedback">Enter short description</div>
     </div>
    
 
-    <!-- <div>
-      <label for="image" class="form-label">Image</label>
-       <input name="image" value="<%=listings.image.url%>"  type="text" class="form-control"/> 
-   
-
-    </div> -->
 
     <div class="mb-3">
-      <label for="image" class="form-label">Image URL</label>
+      <label for="image" class="form-label" >Image URL</label>
       <input
         name="image"
         value="<%= listings.image.url %>"
         type="text"
         class="form-control"
-      />
+        required/>
+
+        <div class="invalid-feedback">Enter correct URL </div>
+
     </div>
   
     <div class="row">
 
       <div class="mb-3 col-md-4">
-        <label for="price" class="form-label">Price</label>
-        <input name="price" value="<%=listings.price%>"  type="number" class="form-control"/>
+        <label for="price" class="form-label" >Price</label>
+        <input name="price" value="<%=listings.price%>"  type="number" class="form-control" required/>
+
+        <div class="invalid-feedback">PRICE MUST BE VALID</div>
+
        </div>
      
        <div class="mb-3 col-md-8">
-        <label for="country" class="form-label">Country</label>
-        <input name="country" value="<%=listings.country%>"  type="text" class="form-control"/>
+        <label for="country" class="form-label" >Country</label>
+        <input name="country" value="<%=listings.country%>"  type="text" class="form-control" required/>
+
+        <div class="invalid-feedback">Country name should be valid </div>
+
        </div>
 
     </div>
    
 
     <div>
-      <label for="location" class="form-label">Location</label>
-      <input name="location" value="<%=listings.location%>"  type="text" class="form-control"/>
+      <label for="location" class="form-label" required>Location</label>
+      <input name="location" value="<%=listings.location%>"  type="text" class="form-control" required/>
+
+      <div class="invalid-feedback">Location should be valid </div>
+
     </div>
     
 
@@ -63,6 +75,7 @@
   </form>
 </div>
 </div>
+ 
 
 
 
@@ -77,42 +90,3 @@
 
 
 
-
-
-
-<!-- 
-STARTING MAI AISA THAI
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WonderLust</title>
-</head>
-<body>
-  <h2> CREATE NEW LISTING</h2>
-  <form method="POST" action="/listings/<%=listings._id%>?_method=PUT">
-    <input name="title" value="<%=listings.title%>" type="text"/>
-    <br/>  <br/>
-    <textarea name="description"  ><%=listings.description%></textarea>
-
-    
-    <br/>  <br/>
-    <input name="image" value="<%=listings.image%>"  type="text"/>
-    <br/>  <br/>
-    <input name="price" value="<%=listings.price%>"  type="number"/>
-    <br/>  <br/>
-    <input name="country" value="<%=listings.country%>"  type="text"/>
-    <br/>  <br/>
-    <input name="location" value="<%=listings.location%>"  type="text"/>
-    <br/>  
-
-    <br/>
-    <button>EDIT</button>
-
-
-  </form>
-  
-</body>
-</html> -->
