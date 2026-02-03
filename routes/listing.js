@@ -6,22 +6,13 @@
  const Listing=require("../models/listing.js")
 
 
+ const {isLoggedIn,isOwner,validateListing}=require("../middleware.js")
 
 
 
 
 
- const validateListing=(req,res,next)=>{
-  let  {error}=listingSchema.validate(req.body);
-  
-  if(error){
-    let errMsg=error.details.map((el)=>el.message).join(",")
-     
-    throw new ExpressError(400,errMsg)
-  }else{
-    next();
-  }
-}
+
 
 
 
@@ -33,14 +24,15 @@
 // })
  
 
-router.get("/",async(req,res)=>{
-  const allListings=await Listing.find({});
+router.get("/",
+wrapAsyc(async(req,res)=>{
+  const allListings=await Listing.find({})
   res.render("listings/index",{allListings});
 })
- 
+);
 // NEW ROUTE
 
-router.get("/new",(req,res)=>{
+router.get("/new",isLoggedIn,(req,res)=>{
   res.render("listings/new")
 })
 
@@ -49,7 +41,7 @@ router.get("/new",(req,res)=>{
 
 router.get("/:id",wrapAsyc(async(req,res)=>{
   let{id}=req.params;
-  const listing= await Listing.findById(id).populate("reviews");
+  const listing= await Listing.findById(id).populate({path:"reviews",populate:{path:"author"}}).populate("owner");
   if(!listing){
     req.flash("error","Listing you requested for does not exist")
    return res.redirect("/listings")
@@ -62,7 +54,7 @@ router.get("/:id",wrapAsyc(async(req,res)=>{
 
 // create route
 
-router.post("/",validateListing,wrapAsyc(async(req,res)=>{
+router.post("/",isLoggedIn,validateListing,wrapAsyc(async(req,res)=>{
   
     let{title,description,image,price,country,location}=req.body
 
@@ -77,6 +69,7 @@ router.post("/",validateListing,wrapAsyc(async(req,res)=>{
         price:price,
         country:country,
         location:location,
+        owner: req.user._id  
       });
       await sampleListing.save()
       req.flash("success","New Listing Created!")
@@ -89,7 +82,7 @@ router.post("/",validateListing,wrapAsyc(async(req,res)=>{
 
 
 // edit
-  router.get("/:id/edit",async(req,res)=>{
+  router.get("/:id/edit",isLoggedIn,isOwner,async(req,res)=>{
     let{id}=req.params;
     const listings=await Listing.findById(id);
     if(!listings){
@@ -101,10 +94,9 @@ router.post("/",validateListing,wrapAsyc(async(req,res)=>{
 
 // update 
 
-router.put("/:id", validateListing,wrapAsyc(async (req, res) => {
-  let { id } = req.params;
-  let { title, description, image, price, country, location } = req.body;
-
+router.put("/:id",isLoggedIn,isOwner,validateListing,wrapAsyc(async (req, res) => {
+  let { id } = req.params; 
+  let { title, description, image, price, country, location } = req.body; 
   
   await Listing.findByIdAndUpdate(id, {
     title,
@@ -126,7 +118,7 @@ router.put("/:id", validateListing,wrapAsyc(async (req, res) => {
 
 // DELETE
 
-router.delete("/:id",wrapAsyc(async(req,res)=>{
+router.delete("/:id",isLoggedIn,isOwner,wrapAsyc(async(req,res)=>{
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success","Listing Deleted!")
