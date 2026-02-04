@@ -9,11 +9,11 @@
     <h3 class="mb-4"> Create New List</h3>
     <br/>    
 
-  <form method="POST" action="/listings"  novalidate class="needs-validation">
+  <form method="POST" action="/listings"  novalidate class="needs-validation" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input name="title" placeholder="enter title" type="text" class="form-control" required/>
-   
+    
      
     <div class="valid-feedback">LOOK GOOD</div>
 
@@ -27,11 +27,19 @@
     </div>
    
   
+<!-- 
+    <div class="mb-3">
+      <label for="image" class="form-label">Image Link</label>
+      <input name="listing[image]" placeholder="enter image url link" type="text" class="form-control "/>
+    </div> -->
+
+
 
     <div class="mb-3">
-      <label for="image" class="form-label">Image</label>
-      <input name="image" placeholder="enter image url link" type="text" class="form-control "/>
+      <label for="listing[image]" class="form-label">Upload Image</label>
+      <input name="listing[image]"  type="file" class="form-control " required/>
     </div>
+
 
     
     

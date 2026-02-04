@@ -1,3 +1,10 @@
+if(process.env.NODE_ENV!="production"){
+  require("dotenv").config(); 
+}
+
+
+
+
 const express=require("express")
 const app=express();
 const mongoose=require("mongoose")
@@ -13,14 +20,16 @@ const ejsMate=require("ejs-mate");
 
 const ExpressError=require("./utils/ExpressError.js");
 
-const MONGO_URL="mongodb://127.0.0.1:27017/wonderlust"
+
 
 const listingRouter=require("./routes/listing.js");
 const reviewRouter=require("./routes/review.js")
 const userRouter=require("./routes/user.js")
 
 
-const session=require("express-session")//session use karne ke liye 
+const session=require("express-session")
+const MongoStore=require("connect-mongo").default;
+
 
 const flash=require("connect-flash")
 
@@ -36,10 +45,29 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"/public")))// ye static file like style.css likhe ke liye hai 
 
+// MONGODB
+
+// const MONGO_URL="mongodb://127.0.0.1:27017/wonderlust"
+
+const dbUrl=process.env.ATLASDB_URL
+
+
+const store=MongoStore.create({
+  mongoUrl:dbUrl,
+  crypto:{
+    secret:"mysupersecretcode"
+  },
+  touchAfter:24*3600
+});
+
+store.on("error",(err)=>{
+  console.log("ERROR IN MONGO SESSION STORE",err);
+})
 
 // session
 
 const sessionOptions={
+  store,
   secret:"mysupersecretcode",
   resave:false,
   saveUninitialized:true,
@@ -50,6 +78,8 @@ const sessionOptions={
 
   },
 };
+
+ 
 
 app.use(session(sessionOptions));
 app.use(flash())
@@ -71,6 +101,8 @@ app.use((req,res,next)=>{
   res.locals.success=req.flash("success");
   res.locals.error=req.flash("error")
   res.locals.currUser=req.user;
+  res.locals.mapToken = process.env.MAP_TOKEN;
+ 
   next()
 })
  
@@ -95,6 +127,9 @@ app.use("/",userRouter)
  
 
 
+async function main(){
+  await mongoose.connect(dbUrl);
+}
 
 
 main().then(()=>{
@@ -103,14 +138,11 @@ main().then(()=>{
   console.log(err);
 })
 
-async function main(){
-  await mongoose.connect(MONGO_URL);
-}
 
-app.get("/",(req,res)=>{
-  res.send("Hi i am root")
+// app.get("/",(req,res)=>{
+//   res.send("Hi i am root")
 
-})
+// })
 
 
 
